@@ -34,18 +34,50 @@ public class Player {
 
     /*
      * TODO: removes and returns the tile in given index position
+     * 
+     * Ceyhun Deniz Keleş -done.
      */
-    public Tile getAndRemoveTile(int index) {
-        return null;
+    public Tile getAndRemoveTile(int index) 
+    {
+        Tile wantedTile = playerTiles[index];
+        playerTiles[index] = null;
+
+        for (int i = index; i < playerTiles.length - 1; i++)
+        {
+            playerTiles[i] = playerTiles[i + 1];
+        }
+
+        return wantedTile;
     }
 
     /*
      * TODO: adds the given tile to this player's hand keeping the ascending order
      * this requires you to loop over the existing tiles to find the correct position,
      * then shift the remaining tiles to the right by one
+     * 
+     * Ceyhun Deniz Keleş -done.
      */
-    public void addTile(Tile t) {
+    public void addTile(Tile t) 
+    {
+        int compareValue = 2; // terminal value
+        int correctIndex = -1; // terminal value
 
+        for (int i = 0; i < playerTiles.length; i++)
+        {
+            compareValue = t.compareTo (playerTiles[i]);
+
+            if (compareValue == -1)
+            {
+                correctIndex = i;
+            }
+        }
+
+        for (int i = playerTiles.length - 2; i >= correctIndex; i--)
+        {
+            playerTiles[i + 1] = playerTiles[i];
+        }
+
+        playerTiles[correctIndex] = t;
     }
 
     /*
