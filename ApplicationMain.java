@@ -27,6 +27,8 @@ public class ApplicationMain {
         boolean gameContinues = true;
         int playerChoice = -1;
 
+        boolean continueAsking = true; // Added by Bora Balcı
+
         while(gameContinues) {
             
             int currentPlayer = game.getCurrentPlayerIndex();
@@ -76,9 +78,23 @@ public class ApplicationMain {
                     // if game continues we need to discard a tile using the given index by the player
                     System.out.println("Which tile you will discard?");
                     System.out.print("Discard the tile in index: ");
-                    playerChoice = sc.nextInt();
-
-                    // TODO: make sure the given index is correct, should be 0 <= index <= 14
+                    
+                    /* TODO: make sure the given index is correct, should be 0 <= index <= 14
+                     * Bora Balcı - done.
+                     */
+                    
+                    while (continueAsking) // Asking the user for an index until a valid one is entered.s
+                    {
+                        playerChoice = sc.nextInt();
+                        if (playerChoice < 0 || playerChoice > 14)
+                        {
+                            System.out.println("Invalid index. Index should be between 0 and 14: ");
+                        }
+                        else
+                        {
+                            continueAsking = false;
+                        }
+                    }
 
                     game.discardTile(playerChoice);
                     game.passTurnToNextPlayer();
