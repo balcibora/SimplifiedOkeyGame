@@ -15,9 +15,33 @@ public class Player {
      * note that the player whose turn is now draws one extra tile to have 15 tiles in hand,
      * and the extra tile does not disturb the longest chain and therefore the winning condition
      * check the assigment text for more details on winning condition
+     * 
+     * Ceyhun Deniz Keleş -done.
      */
-    public boolean checkWinning() {
-        return false;
+    public boolean checkWinning ()
+    {
+        int chain = 0;
+
+        for (int i = 0; i < playerTiles.length - 1; i++)
+        {
+            boolean canFormChain = playerTiles[i].canFormChainWith (playerTiles[i + 1]);
+
+            // checks if the current tile can form a chain with the next tile
+            if (canFormChain)
+            {
+                chain++;
+            }        
+        }
+
+        // checks if the player has made a complete chain
+        if (chain == 14)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /*
@@ -25,11 +49,40 @@ public class Player {
      * this method should iterate over playerTiles to find the longest chain
      * of consecutive numbers, used for checking the winning condition
      * and also for determining the winner if tile stack has no tiles
+     * 
+     * Ceyhun Deniz Keleş -done.
      */
-    public int findLongestChain() {
-        int longestChain = 0;
+    public int findLongestChain () {
+        int longestChainSoFar = 0;
+        int currentChain = 0;
 
-        return longestChain;
+        for (int i = 0; i < playerTiles.length - 1; i++)
+        {
+            boolean canFormChain = playerTiles[i].canFormChainWith (playerTiles[i + 1]);
+            boolean doesMatch = playerTiles[i].matchingTiles (playerTiles[i + 1]);
+
+            // checks if the current tile can form a chain with the next tile
+            if (canFormChain)
+            {
+                currentChain++;
+            }
+
+            // updates the longest chain when current chain is larger
+            if (longestChainSoFar < currentChain)
+            {
+                longestChainSoFar = currentChain;
+            }
+
+            /* resets the chain if it cannot form a chain with the next tile while making sure the
+            * next tile does not have the same value as the current one
+            */
+            if (!doesMatch && !canFormChain)
+            {
+                currentChain = 0;
+            }            
+        }
+
+        return longestChainSoFar;
     }
 
     /*
@@ -37,7 +90,7 @@ public class Player {
      * 
      * Ceyhun Deniz Keleş -done.
      */
-    public Tile getAndRemoveTile(int index) 
+    public Tile getAndRemoveTile (int index) 
     {
         Tile wantedTile = playerTiles[index];
         playerTiles[index] = null;
@@ -57,7 +110,7 @@ public class Player {
      * 
      * Ceyhun Deniz Keleş -done.
      */
-    public void addTile(Tile t) 
+    public void addTile (Tile t) 
     {
         int compareValue = 2; // terminal value
         int correctIndex = -1; // terminal value
@@ -69,6 +122,7 @@ public class Player {
             if (compareValue == -1)
             {
                 correctIndex = i;
+                break;
             }
         }
 
