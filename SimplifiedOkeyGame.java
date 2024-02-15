@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class SimplifiedOkeyGame {
 
     Player[] players;
@@ -30,18 +32,25 @@ public class SimplifiedOkeyGame {
      * TODO: distributes the starting tiles to the players
      * player at index 0 gets 15 tiles and starts first
      * other players get 14 tiles, this method assumes the tiles are already shuffled
+     * 
+     * Erkam Uysal - Done
      */
     public void distributeTilesToPlayers() {
-
+        players[0].addTile(tiles[--tileCount]);
+        for(int i = 0; i < 4 * 14; i++) {
+            players[i / 14].addTile(tiles[--tileCount]);
+        }
     }
 
     /*
      * TODO: get the last discarded tile for the current player
      * (this simulates picking up the tile discarded by the previous player)
      * it should return the toString method of the tile so that we can print what we picked
+     * 
+     * Erkam Uysal - Done
      */
     public String getLastDiscardedTile() {
-        return null;
+        return lastDiscardedTile.toString();
     }
 
     /*
@@ -49,16 +58,26 @@ public class SimplifiedOkeyGame {
      * that tile is no longer in the tiles array (this simulates picking up the top tile)
      * and it will be given to the current player
      * returns the toString method of the tile so that we can print what we picked
+     * 
+     * Erkam Uysal - Done
      */
     public String getTopTile() {
-        return null;
+        return tiles[--tileCount].toString();
     }
 
     /*
      * TODO: should randomly shuffle the tiles array before game starts
+     * 
+     * Erkam Uysal - Done
      */
     public void shuffleTiles() {
-
+        Random rnd = new Random();
+        for(int i = 103; i > 0; i--) {
+            int index = rnd.nextInt(i);
+            Tile tmp = tiles[i];
+            tiles[i] = tiles[index];
+            tiles[index] = tmp;
+        }
     }
 
     /*
@@ -71,10 +90,27 @@ public class SimplifiedOkeyGame {
 
     /* TODO: finds the player who has the highest number for the longest chain
      * if multiple players have the same length may return multiple players
+     * 
+     * Erkam Uysal - Done
      */
     public Player[] getPlayerWithHighestLongestChain() {
-        Player[] winners = new Player[1];
 
+        int count = 1, maxChain = players[0].findLongestChain();
+        for(int i = 1; i < 4; i++) {
+            if(maxChain < players[i].findLongestChain()) {
+                count = 1;
+                maxChain = players[i].findLongestChain();
+            }
+            else if (maxChain == players[i].findLongestChain()) {
+                count++;
+            }
+        }
+        Player[] winners = new Player[count];
+        for(int i = 0; i < 4; i++) {
+            if(players[i].findLongestChain() == maxChain) {
+                winners[--count] = players[i];
+            }
+        }
         return winners;
     }
     
