@@ -132,6 +132,8 @@ public class SimplifiedOkeyGame {
      * - picking from the lastDiscardedTile using getLastDiscardedTile()
      * you should check if getting the discarded tile is useful for the computer
      * by checking if it increases the longest chain length, if not get the top tile
+     * 
+     * Eser Tekin Tekeli - Done
      */
     public void pickTileForComputer() {
         /*find the longest chain ->
@@ -167,7 +169,9 @@ public class SimplifiedOkeyGame {
      * you may choose based on how useful each tile is
      */
     public void discardTileForComputer() {
-        
+        /*
+         * least
+         */
     }
 
     /*
