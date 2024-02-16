@@ -83,8 +83,13 @@ public class SimplifiedOkeyGame {
     /*
      * TODO: check if game still continues, should return true if current player
      * finished the game. use checkWinning method of the player class to determine
+     * 
+     * Eser Tekin Tekeli - Done
      */
     public boolean didGameFinish() {
+        if(getPlayerWithHighestLongestChain()[0].numberOfTiles == 14){
+            return true;
+        }
         return false;
     }
 
@@ -129,7 +134,32 @@ public class SimplifiedOkeyGame {
      * by checking if it increases the longest chain length, if not get the top tile
      */
     public void pickTileForComputer() {
-
+        /*find the longest chain ->
+        * 1- last discarded tile increases it) take it
+        * 2- last discarded tile doesnt increase it) take it from the top ->
+        */
+        int currentChain = 1, longestChain = 1, longestChainIndex = 0;
+        Player currentPlayer = players[currentPlayerIndex];
+        Tile[] currentPlayTiles = currentPlayer.getTiles();
+        for(int i = 0; i < 13; i++){
+            if(currentPlayTiles[i].canFormChainWith(currentPlayTiles[i + 1])){
+                currentChain++;
+            }
+            else{
+                currentChain = 1;
+            }
+            if(longestChain < currentChain){
+                longestChain = currentChain;
+                longestChainIndex = i + 1;
+            }
+            boolean discardedCanForm = lastDiscardedTile.canFormChainWith(currentPlayTiles[longestChainIndex]) || lastDiscardedTile.canFormChainWith(currentPlayTiles[longestChainIndex + 1 - longestChain]);
+            if(discardedCanForm){
+                getLastDiscardedTile();
+            } else{
+                getTopTile();
+            }
+        }
+        
     }
 
     /*
@@ -137,7 +167,7 @@ public class SimplifiedOkeyGame {
      * you may choose based on how useful each tile is
      */
     public void discardTileForComputer() {
-
+        
     }
 
     /*
