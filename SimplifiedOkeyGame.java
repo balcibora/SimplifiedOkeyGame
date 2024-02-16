@@ -136,9 +136,9 @@ public class SimplifiedOkeyGame {
      * Eser Tekin Tekeli - Done
      */
     public void pickTileForComputer() {
-        /*find the longest chain ->
-        * 1- last discarded tile increases it) take it
-        * 2- last discarded tile doesnt increase it) take it from the top ->
+        /*Find the longest chain ->
+        * 1- If last discarded tile increases it) take it
+        * 2- If last discarded tile doesnt increase it) take it from the top ->
         */
         int currentChain = 1, longestChain = 1, longestChainIndex = 0;
         Player currentPlayer = players[currentPlayerIndex];
@@ -161,17 +161,38 @@ public class SimplifiedOkeyGame {
                 getTopTile();
             }
         }
-        
     }
 
     /*
      * TODO: Current computer player will discard the least useful tile.
      * you may choose based on how useful each tile is
+     * 
+     * Eser Tekin Tekeli -Done
      */
     public void discardTileForComputer() {
         /*
-         * least
+         * least usefull card is the card that is the furthest away from it's neighboors
+         * first and the last cards are assumed to have their missing neighboor can form chain
          */
+
+        //give each card their value
+        int[] cardValue = new int[15];
+        Tile[] currentPlayerTiles = players[currentPlayerIndex].getTiles();
+        cardValue[0] = currentPlayerTiles[1].value - currentPlayerTiles[0].value + 1; 
+        cardValue[14] = currentPlayerTiles[14].value - currentPlayerTiles[14].value + 1;
+        for(int i = 1; i < 14; i++){
+            cardValue[i] = currentPlayerTiles[i + 1].value - currentPlayerTiles[i - 1].value;
+        }
+
+        //discard the card with the highest value
+        int maxValue = 0, maxValueIndex = 0;
+        for(int i = 0; i < 15; i++){
+            if(maxValue < cardValue[i]){
+                maxValue = cardValue[i];
+                maxValueIndex = i;
+            }
+        }
+        discardTile(maxValueIndex);
     }
 
     /*
