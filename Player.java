@@ -58,28 +58,35 @@ public class Player {
 
         for (int i = 0; i < playerTiles.length - 1; i++)
         {
-            boolean canFormChain = playerTiles[i].canFormChainWith (playerTiles[i + 1]);
-            boolean doesMatch = playerTiles[i].matchingTiles (playerTiles[i + 1]);
-
-            // checks if the current tile can form a chain with the next tile
-            if (canFormChain)
+            if (playerTiles[i + 1] != null)
             {
-                currentChain++;
-            }
+                boolean canFormChain = playerTiles[i].canFormChainWith (playerTiles[i + 1]);
+                boolean doesMatch = playerTiles[i].matchingTiles (playerTiles[i + 1]);
 
-            // updates the longest chain when current chain is larger
-            if (longestChainSoFar < currentChain)
-            {
-                longestChainSoFar = currentChain;
-            }
+                // checks if the current tile can form a chain with the next tile
+                if (canFormChain)
+                {
+                    currentChain++;
+                }
 
-            /* resets the chain if it cannot form a chain with the next tile while making sure the
-            * next tile does not have the same value as the current one
-            */
-            if (!doesMatch && !canFormChain)
+                // updates the longest chain when current chain is larger
+                if (longestChainSoFar < currentChain)
+                {
+                    longestChainSoFar = currentChain;
+                }
+
+                /* resets the chain if it cannot form a chain with the next tile while making sure the
+                * next tile does not have the same value as the current one
+                */
+                if (!doesMatch && !canFormChain)
+                {
+                    currentChain = 0;
+                }
+            }
+            else
             {
                 currentChain = 0;
-            }            
+            }           
         }
 
         return longestChainSoFar;
@@ -117,9 +124,17 @@ public class Player {
 
         for (int i = 0; i < playerTiles.length; i++)
         {
-            compareValue = t.compareTo (playerTiles[i]);
+            if (playerTiles[i] != null)
+            {
+                compareValue = t.compareTo (playerTiles[i]);
 
-            if (compareValue == -1)
+                if (compareValue == -1)
+                {
+                    correctIndex = i;
+                    break;
+                }
+            }
+            else
             {
                 correctIndex = i;
                 break;
