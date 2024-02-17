@@ -22,7 +22,7 @@ public class Player {
     {
         int chain = 0;
 
-        for (int i = 0; i < playerTiles.length - 1; i++)
+        for (int i = 0; i < numberOfTiles - 1; i++)
         {
             boolean canFormChain = playerTiles[i].canFormChainWith (playerTiles[i + 1]);
 
@@ -56,37 +56,30 @@ public class Player {
         int longestChainSoFar = 0;
         int currentChain = 0;
 
-        for (int i = 0; i < playerTiles.length - 1; i++)
+        for (int i = 0; i < numberOfTiles - 1; i++)
         {
-            if (playerTiles[i + 1] != null)
+            boolean canFormChain = playerTiles[i].canFormChainWith (playerTiles[i + 1]);
+            boolean doesMatch = playerTiles[i].matchingTiles (playerTiles[i + 1]);
+
+            // checks if the current tile can form a chain with the next tile
+            if (canFormChain)
             {
-                boolean canFormChain = playerTiles[i].canFormChainWith (playerTiles[i + 1]);
-                boolean doesMatch = playerTiles[i].matchingTiles (playerTiles[i + 1]);
-
-                // checks if the current tile can form a chain with the next tile
-                if (canFormChain)
-                {
-                    currentChain++;
-                }
-
-                // updates the longest chain when current chain is larger
-                if (longestChainSoFar < currentChain)
-                {
-                    longestChainSoFar = currentChain;
-                }
-
-                /* resets the chain if it cannot form a chain with the next tile while making sure the
-                * next tile does not have the same value as the current one
-                */
-                if (!doesMatch && !canFormChain)
-                {
-                    currentChain = 0;
-                }
+                currentChain++;
             }
-            else
+
+            // updates the longest chain when current chain is larger
+            if (longestChainSoFar < currentChain)
+            {
+                longestChainSoFar = currentChain;
+            }
+
+            /* resets the chain if it cannot form a chain with the next tile while making sure the
+            * next tile does not have the same value as the current one
+            */
+            if (!doesMatch && !canFormChain)
             {
                 currentChain = 0;
-            }           
+            }    
         }
 
         return longestChainSoFar;
@@ -101,6 +94,7 @@ public class Player {
     {
         Tile wantedTile = playerTiles[index];
         playerTiles[index] = null;
+        numberOfTiles--;
 
         for (int i = index; i < playerTiles.length - 1; i++)
         {
@@ -121,24 +115,27 @@ public class Player {
     {
         int compareValue = 2; // terminal value
         int correctIndex = -1; // terminal value
+        boolean indexNotFoundYet = true;
 
-        for (int i = 0; i < playerTiles.length; i++)
+        for (int i = 0; i < numberOfTiles; i++)
         {
-            if (playerTiles[i] != null)
-            {
-                compareValue = t.compareTo (playerTiles[i]);
+            compareValue = t.compareTo (playerTiles[i]);
 
-                if (compareValue == -1)
-                {
-                    correctIndex = i;
-                    break;
-                }
-            }
-            else
+            if (compareValue == -1)
             {
                 correctIndex = i;
+                indexNotFoundYet = false;
                 break;
             }
+        }
+
+        /** If the new tile has a bigger value than the rest of the player tiles, it means that the loop above
+         * was not able to find an index for the new tile in between the other ones. Therefore, the new tile is
+         * added next to the last current index.
+         */
+        if (indexNotFoundYet)
+        {
+            correctIndex = numberOfTiles;
         }
 
         for (int i = playerTiles.length - 2; i >= correctIndex; i--)
@@ -147,6 +144,7 @@ public class Player {
         }
 
         playerTiles[correctIndex] = t;
+        numberOfTiles++;
     }
 
     /*
