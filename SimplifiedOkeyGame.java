@@ -87,7 +87,7 @@ public class SimplifiedOkeyGame {
      * Eser Tekin Tekeli - Done
      */
     public boolean didGameFinish() {
-        if(getPlayerWithHighestLongestChain()[0].numberOfTiles == 14){
+        if(players[currentPlayerIndex].checkWinning()){
             return true;
         }
         return false;
@@ -121,6 +121,8 @@ public class SimplifiedOkeyGame {
     
     /*
      * checks if there are more tiles on the stack to continue the game
+     * 
+     *  Eser Tekin Tekeli - Done
      */
     public boolean hasMoreTileInStack() {
         return tileCount != 0;
@@ -154,12 +156,14 @@ public class SimplifiedOkeyGame {
                 longestChain = currentChain;
                 longestChainIndex = i + 1;
             }
-            boolean discardedCanForm = lastDiscardedTile.canFormChainWith(currentPlayTiles[longestChainIndex]) || lastDiscardedTile.canFormChainWith(currentPlayTiles[longestChainIndex + 1 - longestChain]);
-            if(discardedCanForm){
-                getLastDiscardedTile();
-            } else{
-                getTopTile();
-            }
+        }
+        boolean discardedCanForm = lastDiscardedTile.canFormChainWith(currentPlayTiles[longestChainIndex]) || lastDiscardedTile.canFormChainWith(currentPlayTiles[longestChainIndex + 1 - longestChain]);
+        if(discardedCanForm){
+            players[currentPlayerIndex].addTile(lastDiscardedTile);
+            getLastDiscardedTile();
+        } else{
+            players[currentPlayerIndex].addTile(tiles[tileCount]);
+            getTopTile();
         }
     }
 
