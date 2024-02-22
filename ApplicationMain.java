@@ -27,7 +27,7 @@ public class ApplicationMain {
         boolean gameContinues = true;
         int playerChoice = -1;
 
-        boolean continueAsking = true; // Added by Bora Balcı
+        boolean continueAsking = true; // Variable added by Bora Balcı
 
         while(gameContinues) {
             
@@ -83,7 +83,7 @@ public class ApplicationMain {
                      * Bora Balcı - done.
                      */
                     
-                    while (continueAsking) // Asking the user for an index until a valid one is entered.s
+                    while (continueAsking) // Asking the user for an index until a valid one is entered.
                     {
                         playerChoice = sc.nextInt();
                         if (playerChoice < 0 || playerChoice > 14)
@@ -105,9 +105,12 @@ public class ApplicationMain {
                         System.out.println("Congratulations, you win!");    
                     }
                     else{
-                        // TODO: the game ended with no more tiles in the stack
-                        // determine the winner based on longest chain lengths of the players
-                        // use getPlayerWithHighestLongestChain method of game for this task
+                        /* TODO: the game ended with no more tiles in the stack
+                         * determine the winner based on longest chain lengths of the players
+                         * use getPlayerWithHighestLongestChain method of game for this task
+                         * Bora Balcı - done.
+                         */
+                        System.out.println("The game ends. Winner(s): " + game.getPlayerWithHighestLongestChain());
                     }
                 }
             }
@@ -133,9 +136,12 @@ public class ApplicationMain {
                         System.out.println(game.getCurrentPlayerName() + " wins.");
                     }
                     else{
-                        // TODO: the game ended with no more tiles in the stack
-                        // determine the winner based on longest chain lengths of the players
-                        // use getPlayerWithHighestLongestChain method of game for this task
+                        /* TODO: the game ended with no more tiles in the stack
+                         * determine the winner based on longest chain lengths of the players
+                         * use getPlayerWithHighestLongestChain method of game for this task
+                         * Bora Balcı - done.
+                         */
+                        System.out.println("The game ends. Winner(s): " + game.getPlayerWithHighestLongestChain());
                     }
                 }
             }
