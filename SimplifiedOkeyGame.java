@@ -50,6 +50,7 @@ public class SimplifiedOkeyGame {
      * Erkam Uysal - Done
      */
     public String getLastDiscardedTile() {
+        players[currentPlayerIndex].addTile(lastDiscardedTile);
         return lastDiscardedTile.toString();
     }
 
@@ -62,7 +63,8 @@ public class SimplifiedOkeyGame {
      * Erkam Uysal - Done
      */
     public String getTopTile() {
-        return tiles[--tileCount].toString();
+        players[currentPlayerIndex].addTile(tiles[--tileCount]);
+        return tiles[tileCount].toString();
     }
 
     /*
