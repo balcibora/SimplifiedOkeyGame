@@ -38,37 +38,20 @@ public class Player {
      * 
      * Ceyhun Deniz Keleş -done.
      */
-    public int findLongestChain () {
-        int longestChainSoFar = 0;
-        int currentChain = 0;
-
-        for (int i = 0; i < numberOfTiles - 1; i++)
-        {
-            boolean canFormChain = playerTiles[i].canFormChainWith (playerTiles[i + 1]);
-            boolean doesMatch = playerTiles[i].matchingTiles (playerTiles[i + 1]);
-
-            // checks if the current tile can form a chain with the next tile
-            if (canFormChain)
-            {
+    public int findLongestChain () {        
+        int maxChain = 1;
+        int currentChain = 1;
+            
+        for(int i = 1; i < numberOfTiles; i++) {
+            if(playerTiles[i].canFormChainWith(playerTiles[i-1]) ) {
                 currentChain++;
+                maxChain = Math.max(currentChain, maxChain);
             }
-
-            // updates the longest chain when current chain is larger
-            if (longestChainSoFar < currentChain)
-            {
-                longestChainSoFar = currentChain;
+            else if (playerTiles[i] != playerTiles[i-1]){
+                currentChain = 1;
             }
-
-            /* resets the chain if it cannot form a chain with the next tile while making sure the
-            * next tile does not have the same value as the current one
-            */
-            if (!doesMatch && !canFormChain)
-            {
-                currentChain = 0;
-            }    
         }
-
-        return longestChainSoFar;
+        return maxChain;
     }
 
     /*

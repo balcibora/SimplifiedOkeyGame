@@ -115,7 +115,7 @@ public class ApplicationMain {
 
                         for (Player player : game.getPlayerWithHighestLongestChain())
                         {
-                            System.out.print(player.getName());
+                            System.out.print(player.getName() + " ");
                         }
                     }
                 }
@@ -151,7 +151,7 @@ public class ApplicationMain {
 
                         for (Player player : game.getPlayerWithHighestLongestChain())
                         {
-                            System.out.print(player.getName());
+                            System.out.print(player.getName() + " ");
                         }
                     }
                 }
