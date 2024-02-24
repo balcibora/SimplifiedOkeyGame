@@ -161,10 +161,8 @@ public class SimplifiedOkeyGame {
         }
         boolean discardedCanForm = lastDiscardedTile.canFormChainWith(currentPlayTiles[longestChainIndex]) || lastDiscardedTile.canFormChainWith(currentPlayTiles[longestChainIndex + 1 - longestChain]);
         if(discardedCanForm){
-            players[currentPlayerIndex].addTile(lastDiscardedTile);
             getLastDiscardedTile();
         } else{
-            players[currentPlayerIndex].addTile(tiles[tileCount]);
             getTopTile();
         }
     }
