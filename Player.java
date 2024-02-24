@@ -20,6 +20,7 @@ public class Player {
      */
     public boolean checkWinning ()
     {
+<<<<<<< Updated upstream
         int chain = 0;
 
         for (int i = 0; i < 14; i++)
@@ -35,6 +36,9 @@ public class Player {
 
         // checks if the player has made a complete chain
         if (chain == 14)
+=======
+        if (findLongestChain() >= 14)
+>>>>>>> Stashed changes
         {
             return true;
         }
