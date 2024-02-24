@@ -88,7 +88,7 @@ public class ApplicationMain {
                         playerChoice = sc.nextInt();
                         if (playerChoice < 0 || playerChoice > 14)
                         {
-                            System.out.println("Invalid index. Index should be between 0 and 14: ");
+                            System.out.print("Invalid index. Index should be between 0 and 14: ");
                         }
                         else
                         {
