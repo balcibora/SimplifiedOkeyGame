@@ -27,8 +27,6 @@ public class ApplicationMain {
         boolean gameContinues = true;
         int playerChoice = -1;
 
-        boolean continueAsking = true; // Variable added by Bora Balcı
-
         while(gameContinues) {
             
             int currentPlayer = game.getCurrentPlayerIndex();
@@ -83,7 +81,9 @@ public class ApplicationMain {
                      * Bora Balcı - done.
                      */
                     
-                    while (continueAsking) // Asking the user for an index until a valid one is entered.
+                     boolean continueAsking = true;
+                    
+                     while (continueAsking) // Asking the user for an index until a valid one is entered.
                     {
                         playerChoice = sc.nextInt();
                         if (playerChoice < 0 || playerChoice > 14)
