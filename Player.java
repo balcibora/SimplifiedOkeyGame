@@ -22,7 +22,7 @@ public class Player {
     {
         int chain = 0;
 
-        for (int i = 0; i < numberOfTiles - 1; i++)
+        for (int i = 0; i < 14 - 1; i++)
         {
             boolean canFormChain = playerTiles[i].canFormChainWith (playerTiles[i + 1]);
 
