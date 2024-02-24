@@ -50,8 +50,24 @@ public class ApplicationMain {
                     System.out.println("1. Discard Tile");
                 }
 
-                System.out.print("Your choice: ");
-                playerChoice = sc.nextInt();
+                /* ADDITION: making sure that a valid choice is entered by the user
+                 * Bora Balcı - done.
+                 */
+                
+                boolean continueAsking = true;
+                    
+                while (continueAsking) // Asking the user for a choice until a valid one is entered.
+                {
+                    playerChoice = sc.nextInt();
+                    if (playerChoice < 1 || playerChoice > 2)
+                    {
+                        System.out.print("Invalid choice. Choice should be either 1 or 2: ");
+                    }
+                    else
+                    {
+                        continueAsking = false;
+                    }
+                }
 
                 // after the first turn we can pick up
                 if(!firstTurn) {
@@ -82,9 +98,9 @@ public class ApplicationMain {
                      * Bora Balcı - done.
                      */
                     
-                     boolean continueAsking = true;
+                    continueAsking = true;
                     
-                     while (continueAsking) // Asking the user for an index until a valid one is entered.
+                    while (continueAsking) // Asking the user for an index until a valid one is entered.
                     {
                         playerChoice = sc.nextInt();
                         if (playerChoice < 0 || playerChoice > 14)
