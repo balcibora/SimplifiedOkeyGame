@@ -183,21 +183,32 @@ public class SimplifiedOkeyGame {
         //give each card their value
         int[] cardValue = new int[15];
         Tile[] currentPlayerTiles = players[currentPlayerIndex].getTiles();
-        cardValue[0] = currentPlayerTiles[1].value - currentPlayerTiles[0].value + 1; 
-        cardValue[14] = currentPlayerTiles[14].value - currentPlayerTiles[14].value + 1;
-        for(int i = 1; i < 14; i++){
-            cardValue[i] = currentPlayerTiles[i + 1].value - currentPlayerTiles[i - 1].value;
-        }
+        boolean discardedTile = false;
 
-        //discard the card with the highest value
-        int maxValue = 0, maxValueIndex = 0;
-        for(int i = 0; i < 15; i++){
-            if(maxValue < cardValue[i]){
-                maxValue = cardValue[i];
-                maxValueIndex = i;
+        for(int i = 0; i < 14 ;i++){
+            if(currentPlayerTiles[i].value == currentPlayerTiles[i + 1].value){
+                discardTile(i);
+                discardedTile = true;
+                break;
             }
         }
-        discardTile(maxValueIndex);
+
+        if(!discardedTile){
+            cardValue[14] = currentPlayerTiles[14].value - currentPlayerTiles[13].value + 1;
+            for(int i = 1; i < 14; i++){
+                cardValue[i] = currentPlayerTiles[i + 1].value - currentPlayerTiles[i - 1].value;
+            }
+    
+            //discard the card with the highest value
+            int maxValue = 0, maxValueIndex = 0;
+            for(int i = 0; i < 15; i++){
+                if(maxValue < cardValue[i]){
+                    maxValue = cardValue[i];
+                    maxValueIndex = i;
+                }
+            }
+            discardTile(maxValueIndex);
+        }
     }
 
     /*
