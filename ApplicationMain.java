@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ApplicationMain {
@@ -100,7 +101,7 @@ public class ApplicationMain {
                     game.passTurnToNextPlayer();
                 }
                 else{
-                    if(!game.didGameFinish()) {
+                    if(game.didGameFinish()) {
                         // if we finish the hand we win
                         System.out.println("Congratulations, you win!");    
                     }
@@ -110,7 +111,12 @@ public class ApplicationMain {
                          * use getPlayerWithHighestLongestChain method of game for this task
                          * Bora Balcı - done.
                          */
-                        System.out.println("The game ends. Winner(s): " + game.getPlayerWithHighestLongestChain());
+                        System.out.print("The game ends. Winner(s): ");
+
+                        for (Player player : game.getPlayerWithHighestLongestChain())
+                        {
+                            System.out.print(player.getName());
+                        }
                     }
                 }
             }
@@ -131,7 +137,7 @@ public class ApplicationMain {
                     game.passTurnToNextPlayer();
                 }
                 else{
-                    if(!game.didGameFinish()) {
+                    if(game.didGameFinish()) {
                         // current computer character wins
                         System.out.println(game.getCurrentPlayerName() + " wins.");
                     }
@@ -141,7 +147,12 @@ public class ApplicationMain {
                          * use getPlayerWithHighestLongestChain method of game for this task
                          * Bora Balcı - done.
                          */
-                        System.out.println("The game ends. Winner(s): " + game.getPlayerWithHighestLongestChain());
+                        System.out.println("The game ends. Winner(s): ");
+
+                        for (Player player : game.getPlayerWithHighestLongestChain())
+                        {
+                            System.out.print(player.getName());
+                        }
                     }
                 }
             }

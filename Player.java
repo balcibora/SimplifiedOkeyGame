@@ -20,25 +20,7 @@ public class Player {
      */
     public boolean checkWinning ()
     {
-<<<<<<< Updated upstream
-        int chain = 0;
-
-        for (int i = 0; i < 14; i++)
-        {
-            boolean canFormChain = playerTiles[i].canFormChainWith (playerTiles[i + 1]);
-
-            // checks if the current tile can form a chain with the next tile
-            if (canFormChain)
-            {
-                chain++;
-            }        
-        }
-
-        // checks if the player has made a complete chain
-        if (chain == 14)
-=======
         if (findLongestChain() >= 14)
->>>>>>> Stashed changes
         {
             return true;
         }
