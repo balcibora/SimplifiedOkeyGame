@@ -50,6 +50,8 @@ public class ApplicationMain {
                     System.out.println("1. Discard Tile");
                 }
 
+                System.out.print("Your choice: ");
+                
                 /* ADDITION: making sure that a valid choice is entered by the user
                  * Bora Balcı - done.
                  */
@@ -58,6 +60,7 @@ public class ApplicationMain {
                     
                 while (continueAsking) // Asking the user for a choice until a valid one is entered.
                 {
+                    
                     playerChoice = sc.nextInt();
                     if (playerChoice < 1 || playerChoice > 2)
                     {
