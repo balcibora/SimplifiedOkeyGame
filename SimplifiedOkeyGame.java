@@ -175,39 +175,36 @@ public class SimplifiedOkeyGame {
      */
     public void discardTileForComputer() {
         /*
-         * least usefull card is the card that is the furthest away from it's neighboors
-         * first and the last cards are assumed to have their missing neighboor can form chain
+         * First gets rid of any duplicate tiles.
+         * Then takes the average of the cards value.
+         * discards the card the furthest away from average
          */
 
-        //give each card their value
-        int[] cardValue = new int[15];
+        
         Tile[] currentPlayerTiles = players[currentPlayerIndex].getTiles();
-        boolean discardedTile = false;
+        int average = 0;
 
-        for(int i = 0; i < 14 ;i++){
+        for(int i = 0; i < currentPlayerTiles.length - 1; i++){
             if(currentPlayerTiles[i].value == currentPlayerTiles[i + 1].value){
                 discardTile(i);
-                discardedTile = true;
-                break;
+                return;
             }
         }
 
-        if(!discardedTile){
-            cardValue[14] = currentPlayerTiles[14].value - currentPlayerTiles[13].value + 1;
-            for(int i = 1; i < 14; i++){
-                cardValue[i] = currentPlayerTiles[i + 1].value - currentPlayerTiles[i - 1].value;
-            }
-    
-            //discard the card with the highest value
-            int maxValue = 0, maxValueIndex = 0;
-            for(int i = 0; i < 15; i++){
-                if(maxValue < cardValue[i]){
-                    maxValue = cardValue[i];
-                    maxValueIndex = i;
-                }
-            }
-            discardTile(maxValueIndex);
+        //find the average value
+        for(Tile t : currentPlayerTiles){
+            average += t.value;
         }
+        average /= currentPlayerTiles.length;
+
+        //discard the furthest tile from the average 
+        if(average > currentPlayerTiles[0].value){
+            discardTile(0);
+        }
+        else{
+            discardTile(14);
+        }
+
     }
 
     /*
